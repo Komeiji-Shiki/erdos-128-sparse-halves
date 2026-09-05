@@ -2,7 +2,6 @@
   "date": "2026-09-05",
   "candidate_bound": "2543/100000",
   "ai_written_proof_audit": "completed; no error requiring a change of the constant found",
-  "human_mathematical_review": false,
   "end_to_end_formal_proof": false,
   "novelty_globally_confirmed": false,
   "author_details_complete": false,
@@ -50,28 +49,17 @@
   ],
   "mathematical_audit_record": "notes/proof-audit-2026-09-05.md",
   "pdf_qa": {
-    "pdf_sha256": "443a948ef0b05cec6fb4844392d79e1cbf90fa395bac4a2c6493f4ced1681371",
-    "pages": 11,
+    "pdf_sha256": "581dc37c18500d6fedfe5151b46731bf3e83b3ed81bb38314c584f5fa4b68d92",
+    "pages": 13,
+    "page_size": "A4",
+    "body_font_points": 12,
     "render_dpi": 110,
     "all_pages_visually_inspected": true,
-    "pages_unchanged_from_full_visual_review": [
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10
-    ],
-    "revised_pages_visually_inspected": [
-      1,
-      11
-    ],
     "overfull_underfull_or_undefined_warnings": false,
     "author_metadata": "komeiji shiki",
-    "status": "AI-assisted review copy; human author review pending"
+    "official_ejc_style_sha256": "0807adbf610d01145e6873f217e3a5d4d34b9891accd0d33aa7c1ce5d736dcea",
+    "official_style_file_unmodified": true,
+    "status": "Prepared for E-JC submission; author review declared complete"
   },
   "audited_file_sha256": {
     "paper/sparse-halves.tex": "781d1af1504428e047bc92d3cedc81bc1c11dac4389f3fd37712667988eaa2b3",
@@ -84,10 +72,38 @@
   },
   "intended_author_display_name": "komeiji shiki",
   "pseudonym_accepted_by_journal": null,
-  "subsequent_manuscript_edit": {
+  "human_review_at_initial_ai_audit": false,
+  "author_review": {
+    "author_display_name": "komeiji shiki",
+    "status": "completed_as_declared_by_author",
+    "declaration_date": "2026-09-05",
+    "evidence_type": "author_self_declaration",
+    "scope": [
+      "written mathematical arguments",
+      "statements and applicability of cited results",
+      "computational checks and their mathematical interpretation"
+    ],
+    "reviewed_source_sha256": "781d1af1504428e047bc92d3cedc81bc1c11dac4389f3fd37712667988eaa2b3",
+    "reviewed_pdf_sha256": "443a948ef0b05cec6fb4844392d79e1cbf90fa395bac4a2c6493f4ced1681371",
+    "mathematical_changes_since_review": false,
+    "external_theorems_reproved": false,
+    "independent_peer_review_completed": false,
+    "end_to_end_formal_proof": false,
+    "original_problem_solved": false,
+    "private_review_records_included": false,
+    "note": "This records the author's declaration. It is not a machine certification of human review or a journal endorsement."
+  },
+  "prior_manuscript_edit": {
     "scope": "user-specified display name and submission-status wording only",
     "mathematical_content_changed": false,
     "human_review_completed": false,
     "proof_audit_base_commit": "c43323f"
-  }
+  },
+  "current_manuscript_update": {
+    "scope": "official journal typography, abstract, disclosure and public materials URL",
+    "reviewed_mathematical_body_unchanged": true,
+    "only_body_wording_change": "Equivalent wording about positive denominators to avoid a line overflow",
+    "proof_inputs_and_verifier_code_changed": false
+  },
+  "current_source_sha256": "08ce5aac01b09b6e1d4bf26dc29a56745f96a64703a7473821cd7cc9e4cb45da"
 }

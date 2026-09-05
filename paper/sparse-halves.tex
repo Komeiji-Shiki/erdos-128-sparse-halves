@@ -1,54 +1,46 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,booktabs}
+\documentclass[12pt]{article}
+\usepackage[amsmath]{e-jc}
+\usepackage{booktabs}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
-\usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage{listings}
 \lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newcommand{\B}{\beta_*}
 \newcommand{\cost}{\mathcal Q}
 \newcommand{\E}{\mathbb E}
 \newcommand{\ind}{\mathbf 1}
-\title{Sparse-set extension and degree-sensitive perturbations\newline
-for halves of triangle-free graphs}
+\title{Sparse-set extension and degree-sensitive\\
+perturbations for halves of triangle-free graphs}
 \author{komeiji shiki}
 \hypersetup{pdfauthor={komeiji shiki}}
-\date{Revised manuscript for author review, 5 September 2026}
+\MSC{05C35}
+\Copyright{The author.}
+% Initial-submission metadata only. The unmodified journal style controls
+% typography. Publication dates, volume, article number and DOI are assigned
+% by the editors after acceptance. Replace this block with their supplied
+% \dateline and \specs values when preparing an accepted final version.
+\makeatletter
+\def\the@dateline{Manuscript prepared for submission, 5 September 2026\\[0.5ex]\copy@right}
+\def\ps@plain{\let\@oddhead\@empty\let\@evenhead\@empty
+  \def\@oddfoot{\hfil\thepage\hfil}\let\@evenfoot\@oddfoot}
+\makeatother
+\pagestyle{plain}
 \begin{document}
 \maketitle
 \begin{abstract}
-We give a computer-assisted argument that every triangle-free graph on $n$
-vertices has $\lfloor n/2\rfloor$ vertices spanning at most
-$(2543/100000)n^2=0.02543n^2$ edges. The argument makes degree-sensitive use
-of the neighbourhood perturbation in Sarid's 2026 preprint. A
-reciprocal-degree averaging inequality
-reduces the improvement to a continuous inequality in three real variables;
-a rational subdivision certificate verifies the entire parameter domain.
-A robust sparse-set extension lemma, adapted from Razborov's
-independent-set argument, supplies an additional candidate half.
-We obtain another improvement by anchoring neighbourhoods across a
-maximum cut and bounding their curvature through degree moments.
-The remaining ingredients are the max-cut bounds of Balogh, Clemen and
-Lidick\'y and Sarid's rational certificate for a four-cycle density inequality.
-We recheck the latter using a separate implementation that exhausts all
-labelled graphs on six vertices. The target $n^2/50$ of the sparse half
-conjecture is not reached.
+Erd\H{o}s's sparse half conjecture asks whether every triangle-free graph
+on $n$ vertices contains $\lfloor n/2\rfloor$ vertices spanning at most
+$n^2/50$ edges. We give a computer-assisted proof of the general bound
+$(2543/100000)n^2=0.02543n^2$. The proof combines degree-sensitive
+neighbourhood perturbations, extension from a sparse vertex set, and
+neighbourhoods anchored across a maximum cut. A reciprocal-degree averaging
+criterion reduces one construction to an inequality in three real
+variables. Five exact rational subdivision certificates cover its entire
+parameter domain. The remaining ingredients are known maximum-cut bounds
+and a four-cycle density certificate, which we check with a separate
+implementation enumerating every triangle-free graph on six vertices.
 \end{abstract}
-
-\noindent\textbf{Keywords:} triangle-free graphs, sparse halves, maximum cuts,
-computer-assisted proofs.
-
-\medskip
-\noindent\textbf{Review status.}
-The written argument has received a further AI-assisted mathematical audit,
-and two separately implemented rational interval checkers agree.
-Submission details and human verification of the complete proof are pending.
-The AI-use disclosure and the scope of the checks appear at the end.
 
 \section{Statement and relation to previous work}
 For a finite simple graph $G$ on $n\ge1$ vertices, put
@@ -601,8 +593,8 @@ and
 \[
  v_-=m_-(1-T_+)-2m_+^2/T_-\ge0.
 \]
-These conditions ensure all hypotheses used to replace $Z$ by $Z_0$
-and all positive-denominator comparisons. A lower bound for $W(Z_0)$ is
+These conditions justify replacing $Z$ by $Z_0$ and ensure that all
+compared denominators are positive. A lower bound for $W(Z_0)$ is
 \[
  W_-=
  \frac{4T_-k_-m_-^2}{h_+(k_+-Z_-+2m_+)}
@@ -750,18 +742,16 @@ mathematical interpretation. The selection of density ranges and the
 parameter $19/20$ may permit further optimization, but merely optimizing
 these constants has not been shown to reach $1/50$.
 
-\section*{Computational materials and AI-use disclosure}
-The review archive contains the manuscript source, certificates, both
-interval checkers, the four-cycle checker, and a SHA-256 manifest. File
-paths refer to its root; a public URL has not yet been assigned.
+\section*{Computational materials and AI use}
+The manuscript, source and computational materials are available at
+\url{https://github.com/Komeiji-Shiki/erdos-128-sparse-halves}.
+File paths refer to that repository or the unpacked review archive.
 
 AI assistance in Codex was used for literature searches, mathematical
 exploration and derivation, programming, drafting, and the subsequent
 audit. Earlier methods and Sarid's numerical certificate are attributed
-where used. No human mathematical author has yet verified the complete
-proof. The computational checks do not establish priority, replace author
-responsibility, or constitute an end-to-end formalization. Author
-details and human verification must be completed before submission.
+where used. The author reviewed the mathematical arguments, the
+applicability of the cited results, and the computational checks.
 
 \begin{thebibliography}{9}
 \bibitem{bcl}
@@ -778,7 +768,7 @@ Preprint: \href{https://arxiv.org/abs/2104.09406v2}{arXiv:2104.09406v2}.
 \bibitem{sarid}
 A. Sarid, \emph{Sparse halves in triangle-free graphs: a bound of
 $131/5000$}, preprint dated 4 August 2026, with computational files.
-\url{https://github.com/aimir/erdos-128-sparse-halves}.
+\href{https://github.com/aimir/erdos-128-sparse-halves}{Source repository}.
 Accessed 5 September 2026; version pinned in Appendix~\ref{app:c4}.
 
 \bibitem{erdos}

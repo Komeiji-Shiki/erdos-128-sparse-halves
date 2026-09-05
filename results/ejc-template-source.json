@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://www.combinatorics.org/files/e-jc.sty",
+    "bytes": 8253,
+    "sha256": "0807adbf610d01145e6873f217e3a5d4d34b9891accd0d33aa7c1ce5d736dcea"
+  },
+  {
+    "url": "https://www.combinatorics.org/files/ejc-sample.tex",
+    "bytes": 10638,
+    "sha256": "be1e33a0e9c66bf3a62f5aececfb65f77ffe5565f9a166cd8e2c19399eb5d22b"
+  }
+]

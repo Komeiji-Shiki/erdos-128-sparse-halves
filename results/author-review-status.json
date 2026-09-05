@@ -1,0 +1,20 @@
+{
+  "author_display_name": "komeiji shiki",
+  "status": "completed_as_declared_by_author",
+  "declaration_date": "2026-09-05",
+  "evidence_type": "author_self_declaration",
+  "scope": [
+    "written mathematical arguments",
+    "statements and applicability of cited results",
+    "computational checks and their mathematical interpretation"
+  ],
+  "reviewed_source_sha256": "781d1af1504428e047bc92d3cedc81bc1c11dac4389f3fd37712667988eaa2b3",
+  "reviewed_pdf_sha256": "443a948ef0b05cec6fb4844392d79e1cbf90fa395bac4a2c6493f4ced1681371",
+  "mathematical_changes_since_review": false,
+  "external_theorems_reproved": false,
+  "independent_peer_review_completed": false,
+  "end_to_end_formal_proof": false,
+  "original_problem_solved": false,
+  "private_review_records_included": false,
+  "note": "This records the author's declaration. It is not a machine certification of human review or a journal endorsement."
+}

@@ -1,0 +1,28 @@
+{
+  "official_style_url": "https://www.combinatorics.org/files/e-jc.sty",
+  "style_sha256": "0807adbf610d01145e6873f217e3a5d4d34b9891accd0d33aa7c1ce5d736dcea",
+  "style_unmodified": true,
+  "sample_source_url": "https://www.combinatorics.org/files/ejc-sample.tex",
+  "format": {
+    "documentclass": "article",
+    "font_points": 12,
+    "page_size": "A4",
+    "msc": "05C35"
+  },
+  "unassigned_publication_metadata_suppressed_in_manuscript": true,
+  "affiliation_and_contact_email_supplied": false,
+  "reviewed_mathematical_body_unchanged": true,
+  "pdf_qa": {
+    "pdf_sha256": "581dc37c18500d6fedfe5151b46731bf3e83b3ed81bb38314c584f5fa4b68d92",
+    "pages": 13,
+    "page_size": "A4",
+    "body_font_points": 12,
+    "render_dpi": 110,
+    "all_pages_visually_inspected": true,
+    "overfull_underfull_or_undefined_warnings": false,
+    "author_metadata": "komeiji shiki",
+    "official_ejc_style_sha256": "0807adbf610d01145e6873f217e3a5d4d34b9891accd0d33aa7c1ce5d736dcea",
+    "official_style_file_unmodified": true,
+    "status": "Prepared for E-JC submission; author review declared complete"
+  }
+}

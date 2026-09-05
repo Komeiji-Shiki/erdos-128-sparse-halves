@@ -211,7 +211,7 @@
     "human_mathematical_review": false,
     "end_to_end_formal_proof": false
   },
-  "elapsed_seconds": 3.4060000000172295,
+  "elapsed_seconds": 2.48499999998603,
   "not_checked_by_this_program": [
     "written graph-theoretic reductions",
     "quoted max-cut theorem",

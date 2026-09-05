@@ -1,24 +1,13 @@
 {
-  "pdf_sha256": "443a948ef0b05cec6fb4844392d79e1cbf90fa395bac4a2c6493f4ced1681371",
-  "pages": 11,
+  "pdf_sha256": "581dc37c18500d6fedfe5151b46731bf3e83b3ed81bb38314c584f5fa4b68d92",
+  "pages": 13,
+  "page_size": "A4",
+  "body_font_points": 12,
   "render_dpi": 110,
   "all_pages_visually_inspected": true,
-  "pages_unchanged_from_full_visual_review": [
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10
-  ],
-  "revised_pages_visually_inspected": [
-    1,
-    11
-  ],
   "overfull_underfull_or_undefined_warnings": false,
   "author_metadata": "komeiji shiki",
-  "status": "AI-assisted review copy; human author review pending"
+  "official_ejc_style_sha256": "0807adbf610d01145e6873f217e3a5d4d34b9891accd0d33aa7c1ce5d736dcea",
+  "official_style_file_unmodified": true,
+  "status": "Prepared for E-JC submission; author review declared complete"
 }
