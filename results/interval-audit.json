@@ -1,0 +1,137 @@
+{
+  "verified": true,
+  "target": "2543/100000",
+  "rows": [
+    {
+      "nodes": 5049,
+      "leaves": 2525,
+      "maximum_depth": 28,
+      "leaf_reasons": {
+        "baseline": 245,
+        "sparse-set": 35,
+        "perturbation": 1996,
+        "nonpositive-tangent": 23,
+        "empty-mass": 226
+      },
+      "minimum_margins": {
+        "baseline": "201779/16092800000",
+        "sparse-set": "1085449/35574300000",
+        "perturbation": "1325734477/17760983276400000",
+        "nonpositive-tangent": "0",
+        "empty-mass": "0"
+      },
+      "certificate": "opposite-base",
+      "sha256": "8a5aa7beda22b8133ce48b0556cac51ee77558cbb4dc370f9a5dba9f17d934ec",
+      "density_interval": [
+        "0",
+        "3/10"
+      ],
+      "cut_cap": "2/47"
+    },
+    {
+      "nodes": 445,
+      "leaves": 223,
+      "maximum_depth": 19,
+      "leaf_reasons": {
+        "baseline": 33,
+        "sparse-set": 45,
+        "opposite-neighbourhood": 126,
+        "empty-mass": 19
+      },
+      "minimum_margins": {
+        "baseline": "249459/25868800000",
+        "sparse-set": "77327731441/8504962648700000",
+        "opposite-neighbourhood": "15697543062709463/12267436987606681600000",
+        "empty-mass": "0"
+      },
+      "certificate": "opposite-band1",
+      "sha256": "f4b4819fc870a0b5e715b7d0c77544091aa6131cc1bca6af4b2680778b70f855",
+      "density_interval": [
+        "3/10",
+        "31/100"
+      ],
+      "cut_cap": "2/47"
+    },
+    {
+      "nodes": 1273,
+      "leaves": 637,
+      "maximum_depth": 27,
+      "leaf_reasons": {
+        "baseline": 25,
+        "sparse-set": 215,
+        "opposite-neighbourhood": 379,
+        "empty-mass": 18
+      },
+      "minimum_margins": {
+        "baseline": "124693/6617600000",
+        "sparse-set": "1004502877577641/9620327947342988700000",
+        "opposite-neighbourhood": "32212900431730007462261216185459/813185024816169104799288601136332800000",
+        "empty-mass": "0"
+      },
+      "certificate": "opposite-band2",
+      "sha256": "2d755294dbbbdfac6c92a555001870caa25c393ba651fe89d40f795779fe28a6",
+      "density_interval": [
+        "31/100",
+        "63/200"
+      ],
+      "cut_cap": "2/47"
+    },
+    {
+      "nodes": 1331,
+      "leaves": 666,
+      "maximum_depth": 25,
+      "leaf_reasons": {
+        "baseline": 17,
+        "sparse-set": 401,
+        "opposite-neighbourhood": 231,
+        "empty-mass": 17
+      },
+      "minimum_margins": {
+        "baseline": "5648079/134156800000",
+        "sparse-set": "9025734692889/39416755757582300000",
+        "opposite-neighbourhood": "23699938323206167664980001/2797090698213593677755894988800000",
+        "empty-mass": "0"
+      },
+      "certificate": "opposite-band3",
+      "sha256": "b8dbe23d14b0c3ceb260cae9f4da0772c1804004c0db31d27e6eb2ac2670a5eb",
+      "density_interval": [
+        "63/200",
+        "3197/10000"
+      ],
+      "cut_cap": "2/47"
+    },
+    {
+      "nodes": 467,
+      "leaves": 234,
+      "maximum_depth": 16,
+      "leaf_reasons": {
+        "baseline": 7,
+        "sparse-set": 145,
+        "nonpositive-tangent": 4,
+        "perturbation": 40,
+        "empty-mass": 38
+      },
+      "minimum_margins": {
+        "baseline": "43/100000",
+        "sparse-set": "464381/4106700000",
+        "nonpositive-tangent": "0",
+        "perturbation": "2070031/932974200000",
+        "empty-mass": "0"
+      },
+      "certificate": "opposite-middle",
+      "sha256": "f8ad90fdb9d0934d91f6f45831c71de7bddc97ae8a309fdd4a177a4fb91c1ee6",
+      "density_interval": [
+        "3197/10000",
+        "7/20"
+      ],
+      "cut_cap": "1/25"
+    }
+  ],
+  "total_nodes": 8565,
+  "total_leaves": 4285,
+  "independence_bound": "81/3200",
+  "high_density_bound": "4968750001/200000000000",
+  "scope": "second exact interval implementation; no other project imports",
+  "human_mathematical_review": false,
+  "end_to_end_formal_proof": false
+}

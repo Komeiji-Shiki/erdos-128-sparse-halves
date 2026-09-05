@@ -1,0 +1,789 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{listings}
+\lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\B}{\beta_*}
+\newcommand{\cost}{\mathcal Q}
+\newcommand{\E}{\mathbb E}
+\newcommand{\ind}{\mathbf 1}
+\title{Sparse-set extension and degree-sensitive perturbations\newline
+for halves of triangle-free graphs}
+\author{komeiji shiki}
+\hypersetup{pdfauthor={komeiji shiki}}
+\date{Revised manuscript for author review, 5 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a computer-assisted argument that every triangle-free graph on $n$
+vertices has $\lfloor n/2\rfloor$ vertices spanning at most
+$(2543/100000)n^2=0.02543n^2$ edges. The argument makes degree-sensitive use
+of the neighbourhood perturbation in Sarid's 2026 preprint. A
+reciprocal-degree averaging inequality
+reduces the improvement to a continuous inequality in three real variables;
+a rational subdivision certificate verifies the entire parameter domain.
+A robust sparse-set extension lemma, adapted from Razborov's
+independent-set argument, supplies an additional candidate half.
+We obtain another improvement by anchoring neighbourhoods across a
+maximum cut and bounding their curvature through degree moments.
+The remaining ingredients are the max-cut bounds of Balogh, Clemen and
+Lidick\'y and Sarid's rational certificate for a four-cycle density inequality.
+We recheck the latter using a separate implementation that exhausts all
+labelled graphs on six vertices. The target $n^2/50$ of the sparse half
+conjecture is not reached.
+\end{abstract}
+
+\noindent\textbf{Keywords:} triangle-free graphs, sparse halves, maximum cuts,
+computer-assisted proofs.
+
+\medskip
+\noindent\textbf{Review status.}
+The written argument has received a further AI-assisted mathematical audit,
+and two separately implemented rational interval checkers agree.
+Submission details and human verification of the complete proof are pending.
+The AI-use disclosure and the scope of the checks appear at the end.
+
+\section{Statement and relation to previous work}
+For a finite simple graph $G$ on $n\ge1$ vertices, put
+\[
+ b(G)=\min_{|S|=\lfloor n/2\rfloor}e(G[S]),\qquad
+ \rho(G)=\frac{2e(G)}{n^2}.
+\]
+The sparse half conjecture asks whether $b(G)\le n^2/50$ whenever $G$ is
+triangle-free; see the problem entry \cite{erdos}. Razborov \cite{razborov}
+proved the general bound $27n^2/1024$. Sarid \cite{sarid} subsequently gave
+a preprint claiming $131n^2/5000$, with a rational four-cycle certificate
+and a Lean development conditional on a quoted max-cut theorem. We use
+the numerical four-cycle certificate from that work, but neither import
+its verifier nor rely on its Lean development.
+
+\begin{theorem}\label{thm:main}
+Every finite triangle-free graph $G$ on $n\ge1$ vertices satisfies
+\[
+ b(G)\le qn^2,\qquad q=\frac{2543}{100000}=0.02543.
+\]
+\end{theorem}
+
+The numerical ingredients are a finite coefficient check and five
+interval checks. The first checks an existing four-cycle certificate;
+the others check a scalar inequality covering a continuum of parameters.
+None is
+a search restricted to graphs of bounded order. In particular, the earlier
+finite graph census in the accompanying research repository is not an
+assumption of Theorem~\ref{thm:main}.
+
+The degree-dependent endpoint radii themselves already occur in
+\cite{sarid}. Lemma~\ref{lem:tangent} uses their dependence on the degree
+in a reciprocal-degree averaging criterion.
+Lemma~\ref{lem:extension} allows the starting set to contain edges.
+Section~\ref{sec:opposite} uses neighbourhoods from the other side of
+the cut. We combine these with the density-specific max-cut bound.
+Neither the final constant nor the parameter $19/20$ is claimed optimal.
+
+\section{Fractional halves and the external ingredients}
+Throughout the proof, $G$ is finite, simple and triangle-free.
+Define
+\[
+ \B(G)=\frac1{n^2}\min\left\{
+ \sum_{\{u,v\}\in E(G)}f_uf_v:
+ 0\le f_v\le1,\quad\sum_v f_v=n/2\right\}.
+\]
+Then $b(G)/n^2\le\B(G)$. Indeed, among minimizers choose one with as few
+fractional coordinates as possible. Moving two such coordinates as
+$(f_u+t,f_v-t)$ preserves their sum. The objective is affine or concave
+quadratic in $t$, so one endpoint of the feasible interval is no worse.
+Thus at most one coordinate is fractional. For even $n$ all are integral;
+for odd $n$, discard the sole possible coordinate of value $1/2$.
+We will use that $\B(G(k))=\B(G)$ for every balanced blow-up $G(k)$.
+Indeed, replace a profile on each twin class by its average. The mass
+constraint scales by $k$ and every edge product scales by $k^2$;
+conversely a profile on $G$ lifts constantly to its twin classes.
+
+Write $D_2(G)$ for the least number of edges lying within the two parts of
+a bipartition. We use the following consequences of Theorem~2(a,b) in the
+PDF version of \cite{bcl}:
+\begin{equation}\label{eq:cuts}
+ \frac{D_2(G)}{n^2}\le\frac2{47},\qquad
+ \rho(G)\ge\rho_0:=\frac{3197}{10000}
+ \ \Longrightarrow\ \frac{D_2(G)}{n^2}\le\frac1{25}.
+\end{equation}
+That reference states its results for sufficiently large graphs, and the
+density condition there is $e(G)\ge0.3197\binom n2$. To obtain
+\eqref{eq:cuts}, replace each vertex of $G$ by $k$ nonadjacent twins.
+The resulting graph $G(k)$ is triangle-free and
+$D_2(G(k))=k^2D_2(G)$. For the nontrivial inequality in this identity,
+let $x_i$ be the fraction of class $i$ on one side of a cut in $G(k)$.
+Its internal edge count divided by $k^2$ is
+\[
+ \sum_{\{i,j\}\in E(G)}\bigl(x_ix_j+(1-x_i)(1-x_j)\bigr).
+\]
+This is affine in each individual coordinate, so its minimum over the
+cube occurs at an integral point, corresponding to a cut of $G$.
+Also $\rho(G(k))=\rho(G)$, and $\rho(G)\ge0.3197$ implies
+$e(G(k))\ge0.3197\binom{nk}{2}$. Take $k$ sufficiently large and divide
+the cited bounds by $k^2$.
+
+Our second input is the certificate from \cite{sarid}:
+\begin{equation}\label{eq:c4}
+ t(C_4,G)\ge\rho(G)^3-\gamma\rho(G),\qquad
+ \gamma=\frac3{64}+\frac1{50\,000\,000\,000}.
+\end{equation}
+Here $t(C_4,G)=\operatorname{hom}(C_4,G)/n^4$, with noninjective maps
+included. Appendix~\ref{app:c4} describes the independent coefficient
+check and the precise sampling argument turning it into this inequality.
+The max-cut theorem \eqref{eq:cuts} is cited, not reproved by our programs.
+
+We will also use the neighbourhood estimate
+\begin{equation}\label{eq:anchor}
+ \B(G)\le\frac\rho8-\frac{t(C_4,G)}{4\rho}\quad(\rho>0),
+\end{equation}
+which appears with a different four-cycle normalization in \cite{razborov}.
+For completeness, if a neighbourhood has size at least $n/2$, an
+independent fractional half has cost zero. The right side of
+\eqref{eq:anchor} is nonnegative: the edge-counting identity below and
+$e(N(u),N(v))\le e(G)$ imply $t(C_4,G)\le\rho^2/2$.
+Otherwise every neighbourhood has size less than $n/2$. Fix an edge $uv$,
+set $A=N(u)$, $C=N(v)$ and
+$B=V(G)\setminus(A\cup C)$, and put
+\[
+ p=\frac{1/2-|A|/n}{1-|A|/n-|C|/n}.
+\]
+The sets $A,C$ are disjoint and independent, and $p\in[0,1]$.
+The fractional halves $\ind_A+p\ind_B$ and
+$\ind_C+(1-p)\ind_B$ have costs $Q_u,Q_v$ satisfying
+\[
+ (1-p)Q_u+pQ_v
+ =p(1-p)\left(\frac\rho2-\frac{e(A,C)}{n^2}\right)
+ \le\frac14\left(\frac\rho2-\frac{e(A,C)}{n^2}\right).
+\]
+Average over all edges, using
+$\sum_{uv\in E(G)}e(N(u),N(v))=\operatorname{hom}(C_4,G)/2$,
+to obtain \eqref{eq:anchor} whenever the zero-cost case does not apply.
+
+\section{Keeping the degree in the perturbation}
+Let $H$ be a triangle-free graph with positive vertex weights $w_x$
+summing to one. Define
+\[
+ \mu=\sum_{xy\in E(H)}w_xw_y,\quad
+ d_x=\sum_{y\in N(x)}w_y,\quad
+ e_x=\sum_{y\in N(x)}w_yd_y,\quad
+ S_x=d_x(e_x-\mu d_x).
+\]
+Assume $\mu>0$. Let $\sigma$ denote the total weight of nonisolated
+vertices. Cauchy--Schwarz in $N(x)$ gives
+\[
+ \frac{d_x^2}{e_x}\le\sum_{y\in N(x)}\frac{w_y}{d_y}.
+\]
+All the denominators are positive. Summing with weights $w_x$ and
+reversing the order of summation proves
+\begin{equation}\label{eq:reciprocal}
+ \sum_{x:d_x>0}w_x\frac{d_x^2}{e_x}\le\sigma,
+ \qquad \sum_xw_xd_x=2\mu.
+\end{equation}
+
+For $0<a\le1/2$ and $0<d<1$, let
+\begin{equation}\label{eq:radii}
+ r(a,d)=
+ \min\left\{\frac{1-a}{1-d},\frac a d\right\}
+ \min\left\{\frac a{1-d},\frac{1-a}d\right\}.
+\end{equation}
+
+\begin{lemma}\label{lem:tangent}
+Fix $0<a\le1/2$ and $K>0$. Suppose that, for every $d\in(0,1)$ such that
+$19d>18\mu$,
+\begin{equation}\label{eq:scalar-condition}
+ K\le r(a,d)\mu d^2\frac{d+18\mu}{19d-18\mu}.
+\end{equation}
+Then some nonisolated vertex $x$ satisfies $r(a,d_x)S_x\ge K$.
+Consequently, for every linear functional $\ell$, the constant profile
+$a$ on $H$ can be replaced by a profile $\pi\in[0,1]^{V(H)}$ of the same
+weighted mean such that
+\[
+ \cost(\pi)+\ell(\pi)\le\cost(a)+\ell(a)-K,
+ \qquad \cost(\pi)=\sum_{xy\in E(H)}w_xw_y\pi_x\pi_y.
+\]
+The same assertion holds with constant profile $1-a$.
+\end{lemma}
+
+\begin{proof}
+Suppose $r(a,d_x)S_x<K$ for all nonisolated $x$. Then
+\[
+ \frac{d_x^2}{e_x}>
+ \frac{d_x^3}{\mu d_x^2+K/r(a,d_x)}.
+\]
+For $19d_x\le18\mu$, the right side is positive and hence at least
+$19d_x/(20\mu)-9/10$. In the other case, this same lower bound follows
+by rearranging \eqref{eq:scalar-condition}, with positive denominators.
+Summing the resulting strict inequalities yields
+\[
+ \sum_{x:d_x>0}w_x\frac{d_x^2}{e_x}
+ >\frac{19}{10}-\frac9{10}\sigma\ge\sigma,
+\]
+contradicting \eqref{eq:reciprocal}.
+
+Choose the vertex just obtained and abbreviate $d=d_x$,
+$\varphi=\ind_{N(x)}-d$. Its weighted mean is zero. As $N(x)$ is
+independent, expansion of the quadratic form gives
+\[
+ \cost(\varphi)=-d(e_x-\mu d)=-S_x.
+\]
+The feasible interval for $a+t\varphi$ is $-t_-\le t\le t_+$, where
+\[
+ t_+=\min\{(1-a)/(1-d),a/d\},\quad
+ t_-=\min\{a/(1-d),(1-a)/d\}.
+\]
+Give its two endpoints probabilities $t_-/(t_++t_-)$ and
+$t_+/(t_++t_-)$. Then $\E t=0$ and $\E t^2=t_+t_-=r(a,d)$.
+All linear terms cancel, including $\ell$, and the expected change in
+cost is $-r(a,d)S_x\le-K$. At least one endpoint has that improvement.
+Replacing $a$ by $1-a$ exchanges $t_+$ and $t_-$, leaving their product
+unchanged.
+\end{proof}
+
+The coefficient $19/20$ is a chosen tangent parameter. More generally one
+can compare the reciprocal expression with
+$\lambda d/\mu+1-2\lambda$. Our choice allows the verification to use
+only rational functions; it is not claimed to be optimal.
+
+\section{Extending a sparse set}\label{sec:extension}
+The following argument adapts the greedy extension and neighbourhood
+sampling in Section 4.5 of \cite{razborov}. Its starting set need not be
+independent. For $1/3\le z\le1/2$ put
+\[
+ J(z)=\begin{cases}9/128-z/8,&z\le3/8,\\
+ z(1/2-z)/2,&z\ge3/8.\end{cases}
+\]
+For $1/3\le A\le3/8$ define
+\begin{align*}
+ K_A(z)&=\begin{cases}
+ (12A-32z^2-12z+9)/192,&z\le3/8,\\
+ (A-8z^2+3z)/16,&z\ge3/8,
+ \end{cases}\\
+ \Phi_A(z)&=\max\{J(z),K_A(z)\}.
+\end{align*}
+Both $J$ and $K_A$ are continuous and decreasing on this interval.
+
+\begin{lemma}\label{lem:extension}
+Let $G$ be triangle-free. Suppose its normalized independence number is at most $A$,
+where $A\in[1/3,3/8]$ is rational. If $Z\subseteq V(G)$ has size $zn$
+with $1/3\le z\le1/2$ and spans $\varepsilon n^2$ edges, then
+\[
+ \B(G)\le\varepsilon+\Phi_A(z).
+\]
+\end{lemma}
+\begin{proof}
+Use a balanced blow-up to assume that $n/8$ and $An$ are integers;
+all normalized parameters, including the independence number, are
+unchanged. For the latter claim, an independent set in the blow-up meets
+only classes whose original vertices are pairwise nonadjacent; taking
+all vertices of those classes cannot decrease its size.
+Starting at $B=Z$, repeatedly add a vertex outside $B$ with
+at most $n/8$ neighbours in $B$, stopping on reaching $n/2$ vertices or
+when none is available. Write $b=|B|/n$ and $t=1/8$. Throughout,
+\[
+ \frac{e(B)}{n^2}\le\varepsilon+t(b-z).
+\]
+If $b=1/2$, this is at most $\varepsilon+J(z)$. Suppose instead the
+algorithm stops early. Let $C$ be the vertices outside $B$ with more
+than $bn/2$ neighbours in $B$. Any two vertices of $C$ have a common
+neighbour in $B$, so $C$ is independent and $|C|\le An$.
+Choose $D$ disjoint from $B\cup C$ with normalized size
+$D_0=1-A-b$. Every $w\in D$ has normalized degree into $B$ in
+$(t,b/2]$. Such a choice exists because $|C|/n\le A$.
+Put $r=1/2-b$; in particular, $D_0-r=1/2-A\ge1/8$.
+
+If some $v\in B$ has at least $rn$ neighbours in $D$, choose $rn$ of
+them as $E$. This is an independent set, and $B\cup E$ has normalized
+cost at most
+\[
+ \varepsilon+t(b-z)+\frac b2(1/2-b)\le\varepsilon+J(z).
+\]
+The last quadratic has its maximum at $b=3/8$ when $z\le3/8$,
+and at $b=z$ otherwise.
+
+It remains to consider the case that every $v\in B$ has fewer than
+$rn$ neighbours in $D$. Choose $v$ uniformly in $B$, let
+$E=N(v)\cap D$, $F=D\setminus E$, and $s_v=|E|/n\le r$.
+Take the fractional half equal to $1$ on $B\cup E$ and to
+$(r-s_v)/(D_0-s_v)$ on $F$. The latter ratio lies in $[0,1]$,
+since $D_0>r$. Bounding $e(B,F)/n^2$ by $b|F|/(2n)$,
+those between $E,F$ trivially, and the edges inside $F$ by Mantel's
+bound gives its cost at most
+\[
+ \frac{e(B)+e(B,E)}{n^2}
+ +\frac14(r-s_v)(1/2+b+3s_v).
+\]
+Let $s=\E s_v=e(B,D)/(bn^2)$, so $s\le\min\{r,D_0/2\}$.
+For $u\in D$, write $h_u=|N(u)\cap B|/n\in[t,b/2]$.
+The inequality $h_u^2\le(t+b/2)h_u-tb/2$ and double counting give
+\[
+ \E\frac{e(B,E)}{n^2}
+ =\frac1{bn}\sum_{u\in D}h_u^2
+ \le(t+b/2)s-\frac{tD_0}{2}.
+\]
+The other term is concave in $s_v$, so Jensen's inequality bounds the
+expected cost by $\varepsilon$ plus
+\begin{equation}\label{eq:extension-quadratic}
+ t(b-z)+\frac{r(1-r)}4+(r/2+t)s-\frac34s^2-\frac{tD_0}{2}.
+\end{equation}
+For $b\le3/8$, the unconstrained maximum in $s$ is at
+$s=(r+1/4)/3$, which is no greater than either $r$ or $D_0/2$
+because $b\le3/8\le3/2-3A$. For $b\ge3/8$, one has
+$r\le D_0/2$ since $b\ge A$, and the maximum on
+$0\le s\le\min\{r,D_0/2\}$ is at $s=r$.
+After substitution, the two expressions are
+\[
+ \frac{12A-32b^2+12b-24z+9}{192},\qquad
+ \frac{A-8b^2+5b-2z}{16},
+\]
+respectively. They coincide at $b=3/8$. Their derivatives in $b$ are
+$-(16b-3)/48$ and $-(16b-5)/16$, negative on their relevant intervals
+with $b\ge z\ge1/3$. Thus the maximum occurs at $b=z$ and equals
+$K_A(z)$. One of the sampled halves is no more expensive than its
+expectation. This proves the lemma.
+\end{proof}
+
+\begin{lemma}\label{lem:independence}
+If a triangle-free graph $G$ has an independent set of normalized size at least $9/25$,
+then $\B(G)\le81/3200<2543/100000$.
+\end{lemma}
+\begin{proof}
+Let $\alpha$ be its normalized independence number. For
+$9/25\le\alpha\le3/8$, apply Lemma~\ref{lem:extension} to a maximum
+independent set with $A=z=\alpha$ and $\varepsilon=0$.
+Here $K_\alpha(\alpha)=3/64-\alpha^2/6$, and
+\[
+ J(\alpha)-K_\alpha(\alpha)=(\alpha-3/8)^2/6\ge0.
+\]
+Hence $\B(G)\le J(\alpha)\le J(9/25)=81/3200$.
+For $\alpha\ge3/8$, Theorem 3.6 of \cite{razborov} gives
+$\B(G)\le\alpha(1/2-\alpha)/2\le3/128$ when
+$\alpha\le1/2$; the case $\alpha\ge1/2$ is immediate.
+\end{proof}
+
+\section{Neighbourhoods anchored across a maximum cut}\label{sec:opposite}
+Choose a cut $X,Y$ realizing $D_2(G)$, with $|X|\le|Y|$, and retain
+$c=n/(2|Y|)$, $a=1-c$, $\mu=e(Y)/|Y|^2$. Suppose the independence
+number is at most $An$, where $A=9/25$. Define
+\[
+ h=\frac{|X|}{|Y|}=2c-1,\quad T=2Ac,\quad k=\min\{T,h\},
+ \quad Z=\frac{e(X,Y)}{|Y|^2}.
+\]
+We use this construction only when $a\le1/4$, so $h>0$.
+For $u\in Y$, put $d_u=|N(u)\cap Y|/|Y|$ and
+$\psi_u=|N(u)\cap X|/|Y|$. Optimality of the cut under a single
+vertex flip implies $\psi_u\ge d_u$. Since every neighbourhood in a
+triangle-free graph is independent, the total degree is at most $An$.
+Consequently
+\[
+ 0\le d_u\le T/2,\quad d_u\le\psi_u\le k,
+ \quad\E_Yd_u=2\mu,\quad\E_Y\psi_u=Z.
+\]
+From $(\psi_u-d_u)(k-\psi_u)\ge0$ and Cauchy--Schwarz,
+\begin{equation}\label{eq:product-moment}
+ \E_Y(d_u\psi_u)\ge
+ \E_Y\frac{k d_u^2}{k-\psi_u+d_u}
+ \ge\frac{4k\mu^2}{k-Z+2\mu}.
+\end{equation}
+Zero terms with a zero denominator are interpreted by continuity, or
+omitted before applying Cauchy--Schwarz. The last denominator is positive
+when $\mu>0$, since $Z\le k$.
+
+For $x\in X$, let $I_x=N(x)\cap Y$, an independent set in $G[Y]$,
+and put
+\[
+ D_x=\frac{|I_x|}{|Y|},\quad
+ E_x=\frac1{|Y|}\sum_{u\in I_x}d_u,
+ \quad S_x=D_x(E_x-\mu D_x).
+\]
+Double counting gives
+\[
+ \E_XD_x=Z/h,\qquad
+ \E_XE_x=\E_Y(d_u\psi_u)/h.
+\]
+Moreover, $0\le D_x\le T$ and
+$0\le E_x\le\min\{\mu,TD_x/2\}$. The first bound on $E_x$ uses
+the independence of $I_x$: each edge incident to $I_x$ is counted once.
+
+\begin{lemma}\label{lem:opposite}
+With the maximum-cut notation and independence cap above, assume
+$0<a\le1/4$, $\mu>0$, $\mu\le T^2/2$, and set
+\[
+ v=\mu(1-T)-2\mu^2/T,\qquad
+ W=\frac{4Tk\mu^2}{h(k-Z+2\mu)}+\frac{vZ}{h}-T\mu+2\mu^2.
+\]
+For a constant profile $a$ or $1-a$ on $Y$, with any added linear
+functional, a perturbation within $Y$ saves
+at least $L(a)\max\{W,0\}/(4c^2)$ in ambient normalization, where
+$L(a)=\min\{4a^2,a(1-a)\}$.
+If $v\ge0$, this conclusion remains true after replacing $Z$ in $W$
+by any nonnegative lower bound for $Z$.
+\end{lemma}
+\begin{proof}
+For $0\le D\le T$ and $0\le E\le\min\{\mu,TD/2\}$,
+\begin{equation}\label{eq:curvature-plane}
+ D(E-\mu D)\ge TE+vD-T\mu+2\mu^2.
+\end{equation}
+Indeed, the difference has coefficient $D-T\le0$ in $E$, so it
+suffices to check its upper endpoint. Put $D_*=2\mu/T\le T$.
+For $D\le D_*$ the difference equals
+$(T-D)(T/2-\mu)(D_*-D)$; for $D\ge D_*$ it equals
+$\mu(T-D)(D-D_*)$. Both are nonnegative, since $T\le1$ and
+$\mu\le T^2/2$ imply $\mu\le T/2$.
+Average \eqref{eq:curvature-plane} and apply
+\eqref{eq:product-moment} to obtain $\E_XS_x\ge W$.
+Thus some anchor has $S_x\ge W$.
+
+The perturbation $\ind_{I_x}-D_x$ has mean zero and quadratic cost
+$-S_x$, exactly as in Lemma~\ref{lem:tangent}. The product of its two
+feasible radii is $r(a,D_x)\ge L(a)$ when $0<D_x<1$.
+If $W>0$, the selected anchor has $D_x>0$; also $D_x\le T\le18/25<1$.
+To see the radius inequality,
+use the three ranges $D_x\le a$, $a\le D_x\le1-a$, and
+$D_x\ge1-a$: their products are respectively
+$a(1-a)/(1-D_x)^2$, $a^2/(D_x(1-D_x))$, and
+$a(1-a)/D_x^2$. If $W>0$, choose the better endpoint; if $W\le0$,
+keep the original profile. Finally divide the saving by $4c^2$.
+For $v\ge0$, both $Z$-dependent terms in $W$ are increasing in $Z$
+on $0\le Z\le k$, proving the last assertion.
+For a substituted lower bound $Z_0\le Z$, one has
+$\E_X S_x\ge W(Z)\ge W(Z_0)$, so the same anchor-selection argument
+applies to $\max\{W(Z_0),0\}$.
+\end{proof}
+
+\section{The cut construction and the continuous check}
+Take a cut $V(G)=X\sqcup Y$ realizing $D_2(G)$, with $|X|\le|Y|$ and
+$I=(e(X)+e(Y))/n^2\le I_0$. Write
+\[
+ c=1-a=\frac{n}{2|Y|},\quad 0\le a\le\frac12,
+ \qquad \mu=\frac{e(Y)}{|Y|^2}\le4I_0c^2.
+\]
+The profiles $\ind_X+a\ind_Y$ and $c\ind_Y$ are fractional halves.
+Their costs are respectively
+\begin{equation}\label{eq:baselines}
+ B_1=\frac{a\rho}2+cI-\frac{1+a}{4c}\mu,
+ \qquad B_2=\frac\mu4.
+\end{equation}
+Inside $Y$, a change to either profile contributes a quadratic cost in
+$G[Y]$ and an arbitrary linear functional coming from edges to $X$.
+The conversion from the normalization on $Y$ to that on $G$ multiplies
+costs by $|Y|^2/n^2=1/(4c^2)$.
+
+By Lemma~\ref{lem:independence} it remains to treat graphs with
+independence number less than $(9/25)n$. If $a\le1/4$, then
+$z=|X|/n=1-1/(2c)\ge1/3$, and Lemma~\ref{lem:extension} gives
+the additional bound
+\begin{equation}\label{eq:extension-candidate}
+ \B(G)\le E(a,\mu):=I_0-\frac{\mu}{4c^2}
+      +\Phi_{9/25}\left(1-\frac1{2c}\right).
+\end{equation}
+For $a>1/4$, regard this candidate as unavailable.
+When a lower bound $\rho\ge R_-$ is also specified, use
+$Z_0=4c^2(R_-/2-I_0)\le Z$ in Lemma~\ref{lem:opposite}, provided
+its hypotheses and $Z_0\ge0$, $v\ge0$ hold. With $B(a,\mu)$ defined
+below, this supplies the auxiliary candidate
+\[
+ O(a,\mu)=B(a,\mu)-\frac{L(a)}{4c^2}\max\{W(Z_0),0\}.
+\]
+An inapplicable auxiliary candidate is simply omitted.
+The lower bound for $Z$ follows from the exact identity
+$Z=4c^2(\rho/2-I)$.
+
+The following scalar check combines the candidates.
+\begin{lemma}\label{lem:interval}
+Let $q=2543/100000$ and take $(R_-,R,I_0)$ from the density table
+in Appendix~\ref{app:interval}. Define
+\[
+ P(a)=I_0+a(R/2-I_0),\qquad
+ B(a,\mu)=\min\left\{P(a)-\frac{1+a}{4(1-a)}\mu,\frac\mu4\right\}.
+\]
+Whenever $0<a\le1/2$, $0<\mu\le4I_0(1-a)^2$, $0<d<1$, and
+$19d>18\mu$, either an available auxiliary candidate is at most
+$q$, or one has
+\begin{equation}\label{eq:interval}
+ B(a,\mu)-
+ \frac{r(a,d)\mu d^2(d+18\mu)}{4(1-a)^2(19d-18\mu)}\le q.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Appendix~\ref{app:interval} gives rational upper bounds for the left side
+on rectangular boxes and a finite subdivision covering the entire domain.
+The accompanying checker verifies all leaves and the coverage of the
+subdivision. All acceptance comparisons use rational arithmetic.
+\end{proof}
+
+\begin{proposition}\label{prop:low}
+If $G$ is triangle-free and $\rho(G)\le7/20$, then $\B(G)\le q$.
+\end{proposition}
+\begin{proof}
+Apply Lemma~\ref{lem:independence} first. Otherwise the independence
+cap required in \eqref{eq:extension-candidate} holds. Use the row of
+the density table containing $\rho$; the cuts exist by \eqref{eq:cuts}.
+For $a=0$, the two parts are equal and one has cost at most $I_0/2<q$.
+For $\mu=0$, the second baseline is zero. Thus assume both are positive.
+Replacing $\rho,I$ in $B_1$ by $R,I_0$ can only increase it.
+If $B(a,\mu)\le q$, a baseline suffices; if an available auxiliary
+candidate is at most $q$, its construction suffices. Otherwise put
+$K=4c^2(B(a,\mu)-q)>0$. Lemma~\ref{lem:interval} supplies
+\eqref{eq:scalar-condition}. Apply Lemma~\ref{lem:tangent} within $Y$
+to the better baseline. The resulting fractional half has cost at most
+$B(a,\mu)-K/(4c^2)=q$.
+\end{proof}
+
+\section{The remaining densities}
+For $\rho\ge7/20$, either a zero-cost half exists or
+\eqref{eq:c4} and \eqref{eq:anchor} give
+\[
+ \B(G)\le\frac\rho8-\frac{\rho^2}{4}+\frac\gamma4
+ \le\frac{159}{6400}+\frac1{200\,000\,000\,000}<q.
+\]
+The second inequality follows because the quadratic is decreasing for
+$\rho\ge7/20$. Combining this with Proposition~\ref{prop:low} and the
+rounding argument proves Theorem~\ref{thm:main}.
+
+\appendix
+\section{An exact certificate for the continuous inequality}\label{app:interval}
+The five rows below cover all densities from zero through $7/20$.
+In the first and last rows the opposite-side candidate is not used.
+The final column gives total tree nodes, not sampled parameter points.
+\begin{center}
+\begin{tabular}{cccr}
+\toprule
+$R_-$ & $R$ & $I_0$ & Nodes\\
+\midrule
+$0$ & $3/10$ & $2/47$ & 5,049\\
+$3/10$ & $31/100$ & $2/47$ & 445\\
+$31/100$ & $63/200$ & $2/47$ & 1,273\\
+$63/200$ & $3197/10000$ & $2/47$ & 1,331\\
+$3197/10000$ & $7/20$ & $1/25$ & 467\\
+\bottomrule
+\end{tabular}
+\end{center}
+The starting box is
+\[
+ [0,1/2]\times[0,4I_0]\times[0,1]
+\]
+in the coordinates $(a,\mu,d)$. Let a subbox have endpoints
+$[a_-,a_+]$, $[m_-,m_+]$, $[d_-,d_+]$, and put
+$c_-=1-a_+$, $c_+=1-a_-$. A box is discarded if
+$m_->4I_0c_+^2$, or if $19d_+\le18m_-$. In boxes with $a_+\le1/4$,
+the extension candidate has the upper bound
+\[
+ U_E=I_0-\frac{m_-}{4c_+^2}
+       +\Phi_{9/25}\left(1-\frac1{2c_-}\right).
+\]
+This uses the fact that $\Phi_{9/25}$ is decreasing in its argument.
+Such a box is certified when $U_E\le q$. Otherwise the baseline is at most
+\[
+ U_B=\min\left\{\frac{m_+}{4},\
+ I_0+a_+(R/2-I_0)-\frac{(1+a_-)m_-}{4c_+}\right\}.
+\]
+If $U_B\le q$, the whole box is certified. For the opposite-side
+candidate, set $A=9/25$ and
+\[
+ T_\pm=2Ac_\pm,\quad h_\pm=2c_\pm-1,\quad
+ k_\pm=\min(T_\pm,h_\pm),\quad
+ Z_\pm=4c_\pm^2(R_-/2-I_0).
+\]
+Use this candidate only if the row enables it and
+\[
+ a_+\le1/4,\quad R_-\ge2I_0,\quad m_->0,\quad
+ m_+\le T_-^2/2,\quad Z_+\le k_-,
+\]
+and
+\[
+ v_-=m_-(1-T_+)-2m_+^2/T_-\ge0.
+\]
+These conditions ensure all hypotheses used to replace $Z$ by $Z_0$
+and all positive-denominator comparisons. A lower bound for $W(Z_0)$ is
+\[
+ W_-=
+ \frac{4T_-k_-m_-^2}{h_+(k_+-Z_-+2m_+)}
+ +\frac{v_-Z_-}{h_+}-m_+T_++2m_-^2.
+\]
+Thus a box is also certified when
+\[
+ U_B-\frac{L(a_-)}{4c_+^2}\max(W_-,0)\le q.
+\]
+This comparison does not depend on the degree coordinate $d$.
+Here $L$ is increasing on $[0,1/4]$: both $4a^2$ and $a(1-a)$
+are increasing on that interval.
+
+In the remaining boxes define
+\[
+ \mathcal R_-=
+ \min\left\{\frac{c_-}{1-d_-},\frac{a_-}{d_+}\right\}
+ \min\left\{\frac{a_-}{1-d_-},\frac{c_-}{d_+}\right\}.
+\]
+Every factor is a lower bound for its corresponding endpoint radius.
+The denominator $19d_+-18m_-$ is positive in the remaining boxes.
+An upper bound for the left side of \eqref{eq:interval} is therefore
+\begin{equation}\label{eq:box}
+ U_B-
+ \frac{\mathcal R_-m_-d_-^2(d_-+18m_-)}{4c_+^2(19d_+-18m_-)}.
+\end{equation}
+Endpoint zeros give a valid zero lower bound for the saving. The domains
+of interest have $0<d<1$; no surviving nondegenerate box has $d_-=1$
+or $d_+=0$.
+
+The certificate is a preorder binary tree. Symbols $0,1,2$ bisect the
+corresponding coordinate at its rational midpoint; $L$ denotes a leaf.
+Both children are checked and their union equals their parent, including
+the shared boundary. The checker rejects any missing nodes, trailing
+nodes, invalid symbols, or leaves failing all the stated tests.
+Thus the certificate covers a continuum, including all boundaries,
+rather than a discrete sampling of points.
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Certificate statistic & Combined count\\
+\midrule
+Total tree nodes & 8,565\\
+Leaves certified by the baseline & 327\\
+Leaves certified by sparse-set extension & 841\\
+Leaves certified by opposite-side anchors & 736\\
+Leaves with nonpositive tangent & 27\\
+Leaves certified by the degree tangent & 2,036\\
+Leaves outside the mass constraint & 318\\
+Maximum tree depth & 28\\
+\bottomrule
+\end{tabular}
+\end{center}
+The verification command below prints the certificate file names.
+In the order of the density table, their hashes are
+\begin{lstlisting}
+8a5aa7beda22b8133ce48b0556cac51ee77558cbb4dc370f9a5dba9f17d934ec
+f4b4819fc870a0b5e715b7d0c77544091aa6131cc1bca6af4b2680778b70f855
+2d755294dbbbdfac6c92a555001870caa25c393ba651fe89d40f795779fe28a6
+b8dbe23d14b0c3ceb260cae9f4da0772c1804004c0db31d27e6eb2ac2670a5eb
+f8ad90fdb9d0934d91f6f45831c71de7bddc97ae8a309fdd4a177a4fb91c1ee6
+\end{lstlisting}
+Replay the stored certificates with Python 3.11:
+\begin{lstlisting}
+python -S src/verify_paper.py
+\end{lstlisting}
+These programs need only the Python standard library. A floating-point
+heuristic is used only to choose which coordinate to split when generating
+the tree; it has no role in accepting a leaf. The checker does not use that
+heuristic. This is a reproducible computer-assisted check, not a formal
+proof-assistant verification of the Python interpreter or the reduction.
+A second implementation, \texttt{src/audit\_intervals.py}, imports no
+other project modules. It uses generic rational interval operations and
+recursive tree traversal and checks the same 8,565 nodes independently
+of the first implementation. It can be run separately:
+\begin{lstlisting}
+python -S src/audit_intervals.py
+\end{lstlisting}
+Its report records exact minimum margins for each leaf type in every row.
+
+The optional script \path{src/audit_algebra.py} uses SymPy 1.14.0 to expand
+12 polynomial identities in the proof exactly; these checks are not
+numerical samples and are not required by the standard-library replay.
+
+\section{Independent verification of the four-cycle certificate}\label{app:c4}
+The numerical certificate belongs to Amir Sarid \cite{sarid}, at commit
+\begin{lstlisting}
+ba85f319ebb33ec2194ef4c2929a12916329e1e7
+\end{lstlisting}
+It is retained as \texttt{certificates/sarid-clebsch-tangent.json}, with
+SHA-256
+\begin{lstlisting}
+606b26d835d5b7fe70d077230f8091bbd9677283049a1d0b46a3e3ad30a200ce
+\end{lstlisting}
+Our separate implementation enumerates all $2^{15}=32768$ labelled
+six-vertex simple graphs. Exactly 5,789 are triangle-free. Removing their
+full relabelling orbits gives 38 representatives, without relying on an
+external catalogue. The program rederives the coordinate orderings for
+the certificate's flag vectors and checks all 34 positive rational
+rank-one terms against all 38 hosts. Every coefficient slack is
+nonnegative; they are recorded in \texttt{results/four-cycle-independent.json}.
+
+Here is why this finite check implies \eqref{eq:c4} for every finite $G$.
+Sample six vertices of $G$ independently with replacement and let $H$ be
+the graph of adjacencies on their six positions. It is a triangle-free
+simple graph, even when sampled vertices coincide. The expected
+indicators of a cycle on positions $1,2,3,4$, of the three edges
+$12,34,56$, and of the edge $12$ are respectively
+$t(C_4,G)$, $\rho^3$, and $\rho$. Averaging over all $6!$ permutations
+of the positions gives the target coefficient associated with each host.
+
+Each certificate term is an averaged square. For rootless terms, two
+independent triples realize a product of identical flag functions.
+For two-root terms, condition on the ordered root and its adjacency;
+the two disjoint pairs of extension positions are independent, so the
+conditional expectation of the product is a square. For four-root
+terms, canonically order the root by its adjacency mask and condition
+on it. The two leaf positions are again independent and identically
+distributed. Canonicalization depends only on the root, not on either
+leaf. Multiplication by the indicator of the specified root type
+preserves nonnegativity. This reasoning is valid with replacement and
+does not require the original graph to tend to a graphon limit.
+
+All weights in the certificate are positive. Consequently its expected
+sum of squares is nonnegative. Coefficientwise domination on every
+triangle-free host implies that the target expectation is also
+nonnegative, which is exactly \eqref{eq:c4}.
+
+The independent checker can be run as follows:
+\begin{lstlisting}
+python -S src/verify_four_cycle.py
+\end{lstlisting}
+It uses only the standard library and does not import the original
+verifier, NetworkX, or a table of unlabelled graphs. Passing this check
+supports the cited four-cycle inequality; it does not validate unrelated
+claims in the source repository.
+
+\section{Limitations and next questions}
+The bound in Theorem~\ref{thm:main} exceeds the conjectured value by
+$0.00543n^2$. Neither a proof of the conjecture nor a counterexample is
+provided. The certificates establish the numerical ingredients of the
+written argument; they do not replace an independent review of its
+mathematical interpretation. The selection of density ranges and the
+parameter $19/20$ may permit further optimization, but merely optimizing
+these constants has not been shown to reach $1/50$.
+
+\section*{Computational materials and AI-use disclosure}
+The review archive contains the manuscript source, certificates, both
+interval checkers, the four-cycle checker, and a SHA-256 manifest. File
+paths refer to its root; a public URL has not yet been assigned.
+
+AI assistance in Codex was used for literature searches, mathematical
+exploration and derivation, programming, drafting, and the subsequent
+audit. Earlier methods and Sarid's numerical certificate are attributed
+where used. No human mathematical author has yet verified the complete
+proof. The computational checks do not establish priority, replace author
+responsibility, or constitute an end-to-end formalization. Author
+details and human verification must be completed before submission.
+
+\begin{thebibliography}{9}
+\bibitem{bcl}
+J. Balogh, F. C. Clemen and B. Lidick\'y,
+\emph{Max Cuts in Triangle-free Graphs}, extended abstract, 2021.
+\href{https://arxiv.org/abs/2103.14179v1}{arXiv:2103.14179v1}.
+
+\bibitem{razborov}
+A. A. Razborov, \emph{More about sparse halves in triangle-free graphs},
+Sbornik: Mathematics \textbf{213} (2022), no.~1, 109--128.
+\href{https://doi.org/10.1070/SM9615}{doi:10.1070/SM9615}.
+Preprint: \href{https://arxiv.org/abs/2104.09406v2}{arXiv:2104.09406v2}.
+
+\bibitem{sarid}
+A. Sarid, \emph{Sparse halves in triangle-free graphs: a bound of
+$131/5000$}, preprint dated 4 August 2026, with computational files.
+\url{https://github.com/aimir/erdos-128-sparse-halves}.
+Accessed 5 September 2026; version pinned in Appendix~\ref{app:c4}.
+
+\bibitem{erdos}
+T. Bloom, \emph{Erd\H{o}s Problem \#128}.
+\url{https://www.erdosproblems.com/128}.
+Accessed 5 September 2026.
+\end{thebibliography}
+\end{document}

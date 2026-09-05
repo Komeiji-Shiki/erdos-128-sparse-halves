@@ -1,0 +1,20 @@
+{
+  "verified": true,
+  "sympy_version": "1.14.0",
+  "polynomial_identities": [
+    "cut_baseline_after_clearing_denominators",
+    "reciprocal_tangent_equality",
+    "product_moment_factorization",
+    "curvature_low_after_multiplication_by_T",
+    "curvature_high_after_multiplication_by_T",
+    "extension_completion_of_square",
+    "extension_high_endpoint",
+    "extension_low_derivative",
+    "extension_high_derivative",
+    "independence_J_minus_K",
+    "extension_piece_continuity",
+    "large_neighbourhood_quadratic_maximum"
+  ],
+  "count": 12,
+  "scope": "exact symbolic identities, not an end-to-end mathematical proof"
+}

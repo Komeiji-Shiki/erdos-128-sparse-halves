@@ -1,0 +1,93 @@
+{
+  "date": "2026-09-05",
+  "candidate_bound": "2543/100000",
+  "ai_written_proof_audit": "completed; no error requiring a change of the constant found",
+  "human_mathematical_review": false,
+  "end_to_end_formal_proof": false,
+  "novelty_globally_confirmed": false,
+  "author_details_complete": false,
+  "original_problem_solved": false,
+  "submission_sent": false,
+  "full_workspace_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "count": 17,
+    "passed": true,
+    "exit_code": 0,
+    "log": "results/review-test-log.txt"
+  },
+  "standard_library_replay": {
+    "command": "python -S src/verify_paper.py",
+    "passed": true,
+    "interval_implementations": 2,
+    "nodes": 8565,
+    "leaves": 4285
+  },
+  "four_cycle_check": {
+    "command": "python -S src/verify_four_cycle.py",
+    "passed": true,
+    "all_labelled_graphs": 32768,
+    "triangle_free_labelled_graphs": 5789,
+    "isomorphism_classes": 38,
+    "positive_squares": 34
+  },
+  "original_author_four_cycle_check": {
+    "command": "python verify_clebsch_tangent_certificate.py",
+    "working_directory": "data/sarid-2026",
+    "passed": true,
+    "exit_code": 0,
+    "requires_networkx": true,
+    "log": "results/original-four-cycle-recheck.txt"
+  },
+  "optional_symbolic_audit": {
+    "command": "python src/audit_algebra.py",
+    "passed": true,
+    "identities": 12,
+    "sympy_version": "1.14.0"
+  },
+  "cited_external_theorems": [
+    "Balogh-Clemen-Lidicky Theorem 2(a,b), arXiv:2103.14179v1",
+    "Razborov Theorem 3.6, arXiv:2104.09406v2"
+  ],
+  "mathematical_audit_record": "notes/proof-audit-2026-09-05.md",
+  "pdf_qa": {
+    "pdf_sha256": "443a948ef0b05cec6fb4844392d79e1cbf90fa395bac4a2c6493f4ced1681371",
+    "pages": 11,
+    "render_dpi": 110,
+    "all_pages_visually_inspected": true,
+    "pages_unchanged_from_full_visual_review": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "revised_pages_visually_inspected": [
+      1,
+      11
+    ],
+    "overfull_underfull_or_undefined_warnings": false,
+    "author_metadata": "komeiji shiki",
+    "status": "AI-assisted review copy; human author review pending"
+  },
+  "audited_file_sha256": {
+    "paper/sparse-halves.tex": "781d1af1504428e047bc92d3cedc81bc1c11dac4389f3fd37712667988eaa2b3",
+    "src/verify_paper.py": "06b540de905c8e759a048307dc6235c36dc75064611f6ca2ec7e48ba3e06cae0",
+    "src/verify_four_cycle.py": "0708097016a5b3fe91d01c0a3ee8fcf05954021d81715739822aec5d1da1fac9",
+    "src/audit_intervals.py": "e54d48b7441d9bd63aadf736b2ce0f23b10d3a3c46a5ec080ce08195e1497264",
+    "src/audit_algebra.py": "89a43922cd02a356395b57411010a1af457a20aa10f332fc38d065c784ba49e6",
+    "notes/proof-audit-2026-09-05.md": "d5ed3bf2ea4797b02d47544591992b8e3b69240c56e20263d38aea546b86d0d9",
+    "data/sarid-2026/verify_clebsch_tangent_certificate.py": "0151443fd1960ea1e861ae20f38dc8f834757c80098d7182d9574f538ce59bf2"
+  },
+  "intended_author_display_name": "komeiji shiki",
+  "pseudonym_accepted_by_journal": null,
+  "subsequent_manuscript_edit": {
+    "scope": "user-specified display name and submission-status wording only",
+    "mathematical_content_changed": false,
+    "human_review_completed": false,
+    "proof_audit_base_commit": "c43323f"
+  }
+}

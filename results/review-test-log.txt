@@ -1,0 +1,22 @@
+test_independent_decoders_and_witnesses_on_all_atlas_graphs (test_catalogue.CatalogueTests.test_independent_decoders_and_witnesses_on_all_atlas_graphs) ... ok
+test_clebsch (test_exact.ExactOracleTests.test_clebsch) ... ok
+test_corrupted_record_is_rejected (test_exact.ExactOracleTests.test_corrupted_record_is_rejected) ... ok
+test_every_graph_in_networkx_atlas (test_exact.ExactOracleTests.test_every_graph_in_networkx_atlas) ... ok
+test_known_extremal_examples (test_exact.ExactOracleTests.test_known_extremal_examples) ... ok
+test_negative_control_has_triangles (test_exact.ExactOracleTests.test_negative_control_has_triangles) ... ok
+test_current_certificate_corruptions_are_rejected (test_paper_audit.PaperAuditTests.test_current_certificate_corruptions_are_rejected) ... ok
+test_current_trees_agree_between_implementations (test_paper_audit.PaperAuditTests.test_current_trees_agree_between_implementations) ... ok
+test_signed_interval_arithmetic_and_zero_division (test_paper_audit.PaperAuditTests.test_signed_interval_arithmetic_and_zero_division) ... ok
+test_corrupt_four_cycle_certificate_fails (test_perturbation.PerturbationTests.test_corrupt_four_cycle_certificate_fails) ... ok
+test_interval_certificate_and_failed_controls (test_perturbation.PerturbationTests.test_interval_certificate_and_failed_controls) ... ok
+test_opposite_anchor_moments_on_actual_maximum_cuts (test_perturbation.PerturbationTests.test_opposite_anchor_moments_on_actual_maximum_cuts) ... ok
+test_sparse_set_calculus (test_perturbation.PerturbationTests.test_sparse_set_calculus) ... ok
+test_weighted_graph_identities_and_linear_costs (test_perturbation.PerturbationTests.test_weighted_graph_identities_and_linear_costs) ... ok
+test_atlas_graph_truth_values (test_sat.SatEncodingTests.test_atlas_graph_truth_values) ... ok
+test_native_cardinality_positive_and_negative_controls (test_sat.SatEncodingTests.test_native_cardinality_positive_and_negative_controls) ... ok
+test_symmetry_keeps_a_labeling_for_each_triangle_free_atlas_graph (test_sat.SatEncodingTests.test_symmetry_keeps_a_labeling_for_each_triangle_free_atlas_graph) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 7.144s
+
+OK

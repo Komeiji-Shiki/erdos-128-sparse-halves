@@ -1,0 +1,19 @@
+{
+  "target": "2543/100000",
+  "rho_upper": "3197/10000",
+  "cut_upper": "2/47",
+  "independence_cap": "9/25",
+  "rho_lower_for_opposite_neighbourhood": "63/200",
+  "tangent_parameter": "19/20",
+  "nodes": 1331,
+  "leaves": {
+    "baseline": 17,
+    "sparse-set": 401,
+    "opposite-neighbourhood": 231,
+    "empty-mass": 17
+  },
+  "maximum_depth": 25,
+  "elapsed_seconds": 0.125,
+  "tree_sha256": "b8dbe23d14b0c3ceb260cae9f4da0772c1804004c0db31d27e6eb2ac2670a5eb",
+  "scope": "continuous scalar inequality; graph reduction supplied separately"
+}

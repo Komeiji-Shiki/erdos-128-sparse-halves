@@ -1,0 +1,4 @@
+# Preserve bytes recorded in the SHA-256 manifests.
+* -text
+*.pdf binary
+*.zip binary
